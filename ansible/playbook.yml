@@ -1,0 +1,20 @@
+---
+- hosts: web
+  remote_user: "{{ ansible_user }}"
+  gather_facts: no
+  become: true
+  tasks:
+    - name: Wait 300 seconds, but only start checking after 20 seconds
+      wait_for_connection:
+        delay: 20
+        timeout: 300
+    - name: ensure nginx is at the latest version
+      apt:
+        name: nginx
+        state: latest
+      become: yes
+    - name: start nginx
+      service:
+        name: nginx
+        state: started
+      become: yes
