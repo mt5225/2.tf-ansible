@@ -3,6 +3,8 @@
   remote_user: "{{ ansible_user }}"
   gather_facts: no
   become: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
   tasks:
     - name: Wait 300 seconds, but only start checking after 20 seconds
       wait_for_connection:
